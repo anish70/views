@@ -1,0 +1,136 @@
+
+o implementing any common sorting method
+o traversing a tree
+o reversing a linked list
+o reversing a string
+o Find middle element of linked list in one pass
+
+o How system calls work on Linux, you can use read and write system call as a working example
+o Explain how fork and exec implemented in Linux including any inefficiencies when using them and how to address it (Level 2)
+o Related question, Why fork/exec are two separate operations
+o What happens on a page fault? (Level 1)
+o What is heap and stack memory for a thread (Level 1)
+o What is priority inversion and how it can be handled/avoided (Level 1)
+o Describe memory layout of a C program, e.g. different segments like text, initialized data, bss etc.; in which segment global variables are stored (Level 1)
+o What is a deadlock, describe prevention and recovery techniques (Level 2)
+o Explain what happens from the moment you push the letter 'x' on the keyboard until it appears in an xterm window (Level 2); mainly device driver related and how the input is fed to application like xterm
+
+o Write a program to find if a system is big endian or little endian (Level 1)
+o Find if two strings are anagram of each other (Level 1)
+o Bitwise programming
+	o Determine if an integer is a power of two (Level 1)
+	o Count all set bits in an int value (Level 1)
+	o Reverse bits of an unsigned integer (Level 2)
+	o There are various ways to do this, depending on the approach complexity can be O(n), e.g. using XOR trick or log(n), e.g. lookup table trick
+	o Turn off a particular bit in an unsigned integer (Level 1)
+	o Check if the nth bit is set (Level 1)
+o Implement strdup() (some candidates return stack data) (Level 1)
+o Write an aligned malloc & free function; void* aligned_malloc(size_t nbytes, size_t alignment), void aligned_free(void *p) (Level 2)
+o Given a binary tree create individual linked lists from each level of the binary tree (Level 2)
+o Given a binary tree where each node contains positive numbers, find the maximum sum that is possible along any path of the binary tree (Level 2)
+o Generate all permutations of a given string (Level 2)
+o Given an integer array, one element occurs even number of times and all others odd number of times. Find the element with even occurrences - Time and space complexity is O(N) (Level 2)
+o Write a function which reverses the contents of an array in place (Level 1)
+
+
+o What is the difference between a reference and a pointer, when it is appropriate to use them (Level 1)
+	Reference refers to a fixed object, pointer can point to different objects and can be NULL.
+o What is function overloading? (Level 1)
+	 Multiple functions with different signatures, but using the same function name.
+	Useful for exposing a sensible API.
+o Are you familiar with STL?
+o What are the advantages/disadvantages of using the STL? (Level 2)
+	Advantages: we don't have to write the code; the code has already been optimized and debugged; ecosystems are built around it; it improves with each C++ standard iteration.
+	Disadvantages: Inefficient in some contexts; can be heavy on allocations; opaque implementation details can add complexities.
+o What containers are available in STL? (Level 1)
+	array, vector, list, forward_list, set, multiset, unordered_set, map, multimap, unordered_map, many others.
+o When would you use a std::map? (Level 1)
+	Key-value pairs with log(n) search time.
+o What are the benefits of an std::unordered_map? (Level 2)
+	Key-value pairs; search by key performance is good; can supply custom hashing function tailored to your data.
+o What tools do you use to debug C++ programs?
+	"I only use printf()" is a red flag. If so, ask "what is a core file" and "how do you work with a core file?"
+	Experience with any tool is good. Obviously gdb is good. Other tools are welcomed, maybe helpful for us.
+	If applicable, how do you debug C++ programs in gdb? (Level 2)
+	If applicable, how do you dump STL containers in gdb? (Level 1)
+		"I just try to figure it out using 'p'" is a red flag.
+		"I use python wrappers" is a good answer.
+o Describe what happens when you do a = b + c on std::string, what is the overhead??
+	A temporary object is constructed, the assignment operator is used on "a", and destructor is called on the temporary object.
+o What are move semantics for?
+	Efficient moving of data from one object to another.
+o Implement an r-value assignment operator on a class containing a forward_list<string> (Level 3)
+o Describe what classes you might need to evaluate an expression "(1+foo)*2 == bar". (Eric/Shailesh to update as needed)
+	Expression, Operator, Operand (ConstantOperand, VariableOperand)
+	Flesh out the class definitions.
+		Expression may contain stack of Operator and vector of Operand. Note there are many ways to implement this.
+o How would you marshal/demarshal a forward_list<string> across IPC? (Level 2) (Eric to make it more generic)
+	Talking about sockets and generic IPC mechanisms is good. Let's assume those functions have been written already, and our class deals only with raw bytes.
+	Derive a class from forward_list, implement marshal() and demarshal() functions.
+	marshal(vector<unsigned char> &out) const
+	unmarshal(vector<unsigned char> &in)
+
+
+o Find the Lowest Common Ancestor in a Binary Tree (not binary search tree) (Level 2)
+	Solution: http://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
+o Given a input string of words without space "Thisisanawesomequestion", insert spaces so that the phrase in the string makes sense (Level 2)
+	There are multiple solutions to this problem and you can test them on any but here are some baselines you can consider
+
+	A greedy algorithm won't work.
+	There may be a string that may not have a result.
+	You can use a dictionary to find one word substring.
+o Find majority element in an array (Level 2) (Shailesh to add more details)
+	In an array of size n, if an element occurs more than n/2 times then the array has a majority element, otherwise not.
+o Sort a large on-disk file that won't entirely fit in system memory (Level 2)
+	Delete a node in doubly linked list (Level 1)
+o Merge two sorted lists (in increasing order) into one list in increasing order (Level 2)
+o Iovec::merge(): I/O data is represented as an offset, a length, and a pointer to a buffer. Several such items may be linked together in a list which is sorted by offset and in which no two ranges overlap. Given two such lists, merge them together into a single list that has the same properties. If there is any overlap between the items in two lists, choose the data from the first list.
+o Check if a binary tree is subtree of another tree (Level 2)
+o Given a binary tree calculate its max depth (Level 1)
+o Implement Quicksort using in-place partitioning algorithm (Level 2)
+o Given a tree where nodes have integer labels, find a path that goes down in the tree such that the sum of labels equals S, O(n) complexity (Level 2)
+	A candidate may use C++ and STL to solve these problems.
+
+o Explain sync primitives such as: mutex, semaphore, conditional variable and spin lock (Level 1)
+o How are spin locks implemented (Level 1)
+o Write semaphore P and V operation using mutex and Condition variable (Level 2)
+o Implement reader writer lock using mutex and Condition variable (Level 2)
+o Explain what happens during context switch and when thread is scheduled again (Level 1)
+o There are two threads, one prints even numbers in order and other odd numbers. Design an algorithm so that the numbers are printed in natural order
+o If two threads are incrementing a variable 100 times each without synchronization, what would be the possible minimum and maximum value (Level 2)
+o Solve a producer and consumer problem (Level 2)
+	Given an array of size say 10 elements, write the producer routine, write the consumer routine
+	Handle the case where producer needs to wait if array is full
+	Handle the case where consumer waits if their is nothing to consume
+	Implement the above problem using a Circular Queue.
+
+
+o What is an interrupt and how it is handled (Level 1)
+o What is memory barrier? (Level 1)
+o What is cache coherency and how it is achieved (e.g. MESI protocol) on a multi-processor system? (Level 2)
+o What is DMA and what're the advantages/disadvantages (Level 1)
+o What is the difference between Write-Through and Write-Back Caches? Explain advantages and disadvantages of each (Level 2)
+o What is CPU pipelining, describe data and control hazards and how they are handled (Level 2)
+o How physical memory is organized and addressed in a computer system (Level 1)
+o What are atomic operations? (Level 1)
+o What is Translation look aside buffer (TLB) (Level 1)
+
+o Design malloc and free - Level 2
+o Design Lock-Free Concurrent Hash Table. Here is one approach Level 3
+	https://www.ll.mit.edu/HPEC/agendas/proc11/Day1/Posters/A-9_Feldman_A.pdf
+o Design a MP safe thread pool library. (Shailesh to update on specifics) Here is wikipedia link Level 3
+	http://en.wikipedia.org/wiki/Thread_pool_pattern
+o Design a Generalized Concurrent Queue with multiple producers and consumers. Here is one approach Level 3
+	http://www.drdobbs.com/parallel/writing-a-generalized-concurrent-queue/211601363
+
+o Enhance memory allocator to detect/debug memory corruption - Level 2
+o Simplified Web crawler: given a URL for a Web page, collect all the links on the page and recursively process these URLs in the same manner. You are given a limit on the depth of recursion. A good design should visit multiple sites concurrently and should not visit the same site twice. Do not worry about the mechanics of extracting the links from the HTML text or issuing HTTP requests.
+o In a vanilla navigation system the flow of information is one way: the device sends requests and server sends map information. Whereas a community driven navigation system such as Waze also involves inputs from users. Users can input information such as red light cameras, cop cars, slow traffic, flooded roads, construction etc. to alert other drivers. From an interview perspective, this question has interesting design challenges:
+	Scale for hundreds of million users in different geographies.
+	Designing data structures for augmenting maps with user fed data.
+	Semi permanent events such as 'red light cameras' vs temporary events like 'flood'.
+	Managing static map data and variable event information.
+	Storage, Network & Performance considerations.
+	Notifications mechanism for road condition changes while en route.
+	User management specifically tracking & managing abusive users.
+
