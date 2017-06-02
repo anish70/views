@@ -1,0 +1,7 @@
+100M /
+200M /Lib
+600M /Library
+1000M /Library (Archive)
+100M /Lib/foo
+300M /Library/foo
+500M /Library (Archive)/foo
