@@ -1,0 +1,19 @@
+
+Const Correctness
+-----------------
+
+Const variable decls:
+
+a) Square const* p;     
+b) Square* const p;    
+c) const Square* p;   
+d) Square& const p;  
+e) Square const& p; 
+f) Square mutable* p;
+
+Const function decls:
+
+// What is the most significant difference between these three functions?
+g) int f(T t) const {}
+h) int f(T const t) {}
+i) int f(T const &t) {}

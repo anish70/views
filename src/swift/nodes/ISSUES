@@ -1,0 +1,143 @@
+==========================
+TITLE: Error on missing data file
+POINTS: 10
+
+The first time you use the nodes script it errors:
+IOError: [Errno 2] No such file or directory: 'pickle.dat' 
+
+workaround: `touch pickle.dat`
+
+==========================
+TITLE: Clunky invocation
+POINTS: 10
+
+You get an import error when you try to run the script:
+
+$ ./nodes.py 
+./nodes.py: line 1: import: command not found
+./nodes.py: line 2: import: command not found
+./nodes.py: line 3: import: command not found
+./nodes.py: line 5: DATA_FILE: command not found
+./nodes.py: line 7: syntax error near unexpected token `('
+./nodes.py: line 7: `def get_updated_node(nodes, node_id, **updates):'
+
+workaround: You have to say 'python nodes.py' to start the script
+
+==========================
+TITLE: KeyError when missing id=
+POINTS: 20
+
+There should be a more descriptive error if you forget to provide an id=
+
+e.g.
+
+$ python nodes.py hostname=johnny.swiftstack.com
+Traceback (most recent call last):
+  File "nodes.py", line 57, in <module>
+    print get(sys.argv)
+  File "nodes.py", line 28, in get
+    node_id = updates['id']
+KeyError: 'id'
+
+workaround: use an id
+
+==========================
+TITLE: Pickle format doesn't work with ruby
+POINTS: 150
+
+Need to convert the .dat file to a more portable format
+
+workaround: parse plaintext "list all nodes" output
+
+==========================
+TITLE: Bulk import duplicates metadata
+POINTS: 580
+
+When you do a bulk import, if you include metadata (like environment) it gets
+duplicated to all entries:
+
+e.g.
+
+$ python nodes.py | tee new.data
+ip=72.55.189.57 hostname=prod.swiftstack.com id=1 env=prod
+ip=72.55.189.57 hostname=prod-backup1.swiftstack.com id=3 env=prod
+ip=192.168.1.1 hostname=staging.swiftstack.com id=2
+ip=192.168.1.1 hostname=staging-backup1.swiftstack.com id=4
+$ python nodes.py < new.dat  # N.B. id's 2 & 4 have no env
+$ python nodes.py
+ip=72.55.189.57 hostname=prod.swiftstack.com id=1 env=prod
+ip=72.55.189.57 hostname=prod-backup1.swiftstack.com id=3 env=prod
+ip=192.168.1.1 hostname=staging.swiftstack.com id=2 env=prod
+ip=192.168.1.1 hostname=staging-backup1.swiftstack.com id=4 env=prod
+$
+
+workaround: always explicitly include all metadata for all servers
+
+e.g.
+$ cat new.dat
+ip=72.55.189.57 hostname=prod.swiftstack.com id=1 env=prod
+ip=72.55.189.57 hostname=prod-backup1.swiftstack.com id=3 env=prod
+ip=192.168.1.1 hostname=staging.swiftstack.com id=2 env=stg
+ip=192.168.1.1 hostname=staging-backup1.swiftstack.com id=4 env=stg
+
+==========================
+TITLE: Too easy to overwite id's
+POINTS: 580
+
+When you want to add a new node, it's easy to pick the wrong id and overwrite
+and existing entry.  Maybe "id=auto" ???
+
+workaround: umm... awk?
+
+$ python nodes.py id=$(python nodes.py | awk '{sum+=1} END {print sum+1}') hostname=vpn.swiftstack.com
+{'ip': '0.0.0.0', 'hostname': 'vpn.swiftstack.com', 'id': '3'}
+$ python nodes.py id=$(python nodes.py | awk '{sum+=1} END {print sum+1}') hostname=vpn2.swiftstack.com
+{'ip': '0.0.0.0', 'hostname': 'vpn2.swiftstack.com', 'id': '4'}
+
+==========================
+TITLE: No --help message
+POINTS: 20
+
+Need some sort of usage doc
+
+workaround: see README
+
+==========================
+TITLE: No way to update id
+POINTS: 340
+
+It'd be nice to have a way to update the id if you put it in wrong.
+
+Maybe "id=1 id=2" ???
+
+workaround: redirect listing to new file, edit with vim, use bulk import
+
+==========================
+TITLE: No way to delete a node
+POINTS: 400
+
+There's no syntax to delete a id, maybe... ???
+
+workaround: a series of pipes!
+
+$ python nodes.py
+ip=192.168.1.100 hostname=prod.swiftstack.com id=1
+ip=192.168.1.1 hostname=staging.swiftstack.com id=2
+$ python nodes.py | grep -v id=2 | python nodes.py
+$ python nodes.py
+ip=192.168.1.100 hostname=prod.swiftstack.com id=1
+
+==========================
+TITLE: Output of list single different from list all
+POINTS: 150
+
+I want to be able to say:
+
+python nodes.py id=2 >> bulk.in
+
+... but I can't because output is different
+
+workaround: moar pipes
+
+python nodes.py | grep id=2 >> bulk.in
+

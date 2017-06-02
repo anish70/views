@@ -1,0 +1,2 @@
+ip=192.168.1.100 hostname=prod.swiftstack.com id=1
+ip=192.168.1.1 hostname=staging.swiftstack.com id=2

@@ -1,0 +1,5 @@
+500M /var/lib/data
+300M /srv/www
+1000M /var/log/http
+100M /var/log/auth
+30M /etc/http
