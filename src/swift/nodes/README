@@ -1,0 +1,39 @@
+This script helps manage the SwiftStack devops nodes "database".
+
+We have many types of provisioning and configuration tools (e.g. fabric,
+jenkins, psh, etc) that can perform tasks on the nodes in our infrastructure.
+Keeping a list of all the nodes (and associated metadata) up to date for each
+project can be problematic.
+
+The goal of this script is to facilitate the maintenance of a single source of
+truth for all of the systems managed by the swiftstack devops team and
+generate a file that we can distribute (pickle.dat) and all the tools can
+updated to parse from rather than maintaining independent records.
+
+USAGE:
+
+# list all nodes
+$ python nodes.py
+ip=192.168.1.100 hostname=prod.swiftstack.com id=1
+ip=192.168.1.1 hostname=staging.swiftstack.com id=2
+
+# list single node
+$ python nodes.py id=1
+{'ip': '192.168.1.100', 'hostname': 'prod.swiftstack.com', 'id': '1'}
+
+# update a node
+$ python nodes.py id=1 ip=72.55.189.57
+{'ip': '72.55.189.57', 'hostname': 'prod.swiftstack.com', 'id': '1'}
+
+# add a node
+$ python nodes.py id=3 hostname=demo.swiftstack.com
+{'ip': '0.0.0.0', 'hostname': 'demo.swiftstack.com', 'id': '3'}
+
+# bulk import
+$ cat old.dat 
+ip=72.55.189.57 hostname=prod.swiftstack.com id=1
+ip=192.168.1.1 hostname=staging.swiftstack.com id=2
+$ python nodes.py < old.dat 
+$ python nodes.py 
+ip=72.55.189.57 hostname=prod.swiftstack.com id=1
+ip=192.168.1.1 hostname=staging.swiftstack.com id=2

@@ -1,0 +1,7 @@
+PSGI: like WSGI, but for Perl
+
+To run:
+
+First, run ./setup-environment.sh. This will take a while. Sorry.
+
+To run the app, run ./run-server.sh.
