@@ -29,6 +29,11 @@ hanoi(int diskSize, int source, int dest, int spare)
 
 int main(int argc, char *argv[])
 {
+  if (argc < 2) {
+	cout << "usage: " << argv[0] << " <num-pegs>" << endl;
+	exit(0);
+  }
+
   //Move all 3 disks from peg 0 to peg 1 using peg 2 as a temporary.
   hanoi(atoi(argv[1]) -1, 0, 1, 2);
 }

@@ -9,7 +9,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#include<iostream.h>
+#include<iostream>
 #include<strstream.h>
 #include<tcl.h>
 #include<ctype.h>
